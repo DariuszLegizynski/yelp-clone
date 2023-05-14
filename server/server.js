@@ -14,15 +14,23 @@ app.use(express.json())
 app.get(`${API_URL}`, async (req, res) => {
   try {
     const getRestaurants = await pool.query("SELECT * FROM restaurants")
-    console.log(res.json(getRestaurants.rows))
+    res.status(200).json({
+      results: getRestaurants.rows.length,
+      data: getRestaurants.rows})
   } catch (err) {
     console.error(err)
   }
-  
 })
 
-app.get(`${API_URL}/:id`, (req, res) => {
-  console.log(req.params)
+app.get(`${API_URL}/:id`, async (req, res) => {
+  const { id } = req.params
+  try {
+    const getRestaurant = await pool.query("SELECT * FROM restaurants WHERE id = $1", [id])
+    res.status(200).json({
+      data: getRestaurant.rows})
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 app.post(`${API_URL}`, (req, res) => {

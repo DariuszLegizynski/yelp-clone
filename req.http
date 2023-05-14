@@ -1,4 +1,6 @@
-GET http://localhost:3000/api/v1/restaurants
+# GET http://localhost:3000/api/v1/restaurants
+
+GET http://localhost:3000/api/v1/restaurants/1
 
 
 # POST http://localhost:3000/api/v1/restaurants
